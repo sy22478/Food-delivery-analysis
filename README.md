@@ -1,11 +1,9 @@
 # 🍽️ Food Delivery Data Analysis
 
 ## 📊 Project Overview
-
 A comprehensive data analysis project for FoodHub (New York food aggregator company) examining 1,898 food delivery orders from the `foodhub_order.csv` dataset to uncover insights into customer preferences, restaurant performance, and operational efficiency. The goal is to assist the company in making data-driven decisions to improve service quality, optimize operations, and enhance customer satisfaction through analysis of cuisine popularity, delivery time optimization, revenue patterns, and actionable business recommendations.
 
 ## 🧠 Key Objectives
-
 - Understand popular cuisine types and their relationship with cost, ratings, and preparation time
 - Analyze patterns in order timings across different days of the week (weekend vs weekday)
 - Identify top-performing restaurants based on order volume and customer ratings
@@ -34,263 +32,60 @@ A comprehensive data analysis project for FoodHub (New York food aggregator comp
          │              └─────────────────┘             │
          │                                               │
          └──────────────────────┬──────────────────────┘
-                                │
-                    ┌──────────▼──────────┐
-                    │  Insights &         │
-                    │  Recommendations    │
-                    └─────────────────────┘
+                                ▼
+                      ┌──────────────────┐
+                      │  Visualization   │
+                      │  (Matplotlib,    │
+                      │   Seaborn)       │
+                      └──────────────────┘
 ```
 
-## Complete Tech Stack
+## 🔍 Key Analyses
+- Cuisine popularity distribution and price vs rating correlation
+- Delivery time vs order time-of-day patterns (peak hours vs off-peak)
+- Restaurant performance metrics: average rating, order counts, revenue estimates
+- Commission-based revenue calculation using tiered structure
+- Customer ordering behavior and retention indicators
 
-### Data Analysis Tools
-- **Data Manipulation:** pandas 1.5.3, numpy 1.25.2
-- **Visualization:** matplotlib 3.7.1, seaborn 0.13.1
-- **Statistical Analysis:** Built-in pandas statistical functions
-- **Environment:** Google Colab with specific version controls
+## 📈 Visualizations
+- Histograms, boxplots, and KDE plots for numerical insights
+- Bar charts for categorical distributions (cusine type, restaurant, day of week)
+- Heatmaps for correlation analysis
 
-### Business Analytics Framework (Actual Implementation)
-- **Revenue Analysis:** Commission structure (25% on orders >$20, 15% on orders >$5) generating $6,166.30 total revenue
-- **Customer Segmentation:** Top 3 frequent customers identified (52832: 13 orders, 47440: 10 orders, 83287: 9 orders)
-- **Restaurant Performance:** Top 5 restaurants by order volume (Shake Shack, The Meatball Shop, Blue Ribbon Sushi, Blue Ribbon Fried Chicken, Parm)
-- **Operational Metrics:** Mean delivery time 24.16 minutes, 10.54% orders >60 minutes total time
-- **Cuisine Analysis:** Korean most popular on weekends, Indian/Italian/American highest overall volume
-
-## Skills Developed
-
-### Data Analysis & Business Intelligence (Verified Implementation)
-- **Data Preprocessing:** Missing value handling ('Not given' ratings → NaN), data type conversion (rating: object → float)
-- **Descriptive Statistics:** Comprehensive univariate and multivariate analysis of 9 variables
-- **Customer Segmentation:** Frequency analysis for loyalty program targeting (top 3 customers get 20% discount vouchers)
-- **Revenue Optimization:** Tiered commission structure analysis with vectorized calculations
-
-### Statistical Analysis & Visualization Techniques
-- **Univariate Analysis:** Histograms and boxplots for cost, preparation time, delivery time distributions
-- **Multivariate Analysis:** Cuisine type vs cost analysis, day-of-week patterns, rating correlations
-- **Business Metrics:** Order value analysis (29.24% orders >$20), time efficiency metrics
-- **Data Visualization:** seaborn/matplotlib visualizations with statistical insights
-
-### Food Delivery Domain Expertise
-- **Operational Analysis:** Food preparation time (20-35 min range, 27 min average), delivery time (15-33 min range, 24.16 min average)
-- **Cuisine Market Intelligence:** Korean/Vietnamese lowest cost, French/Thai highest cost, Indian/Italian/American highest volume
-- **Customer Experience Optimization:** Rating analysis (most orders >4 rating), time vs satisfaction correlation
-- **Weekend vs Weekday Patterns:** Operational differences and resource planning insights
-
-## Technical Achievements (Verified Implementation)
-
-### Dataset & Business Context
-- **Data Scale:** 1,898 food delivery orders with 9 variables from FoodHub (New York food aggregator)
-- **Business Model:** Commission-based revenue (25% on orders >$20, 15% on orders >$5)
-- **Analysis Framework:** 17 structured business questions with quantitative answers
-- **Code Structure:** 516 lines of comprehensive Python analysis
-
-### Key Business Insights Discovered
-- **Revenue Analysis:** Total platform revenue of $6,166.30 across all orders
-- **Cost Distribution:** 29.24% of orders cost more than $20 (high-value segment)
-- **Customer Loyalty:** Top customer placed 13 orders, showing strong repeat business
-- **Operational Efficiency:** 10.54% of orders take >60 minutes total time (preparation + delivery)
-- **Weekend Patterns:** Korean cuisine most popular on weekends
-
-### Restaurant Performance Metrics
-- **Top 5 Restaurants by Order Volume:**
-  1. Shake Shack (highest orders)
-  2. The Meatball Shop
-  3. Blue Ribbon Sushi
-  4. Blue Ribbon Fried Chicken
-  5. Parm
-- **Cuisine Cost Analysis:** Korean/Vietnamese (lowest cost), French/Thai (highest cost)
-- **Rating Distribution:** Most orders rated >4, indicating high customer satisfaction
-
-### Code Implementation Examples
-
-**Revenue Calculation with Tiered Commission:**
-```python
-# Vectorized revenue calculation
-conditions = [
-    (df['cost_of_the_order'] > 20),
-    (df['cost_of_the_order'] > 5)
-]
-choices = [
-    df['cost_of_the_order'] * 0.25,
-    df['cost_of_the_order'] * 0.15
-]
-df['revenue'] = np.select(conditions, choices, default=0)
-total_revenue = df['revenue'].sum()  # $6,166.30
+## 📁 Project Structure
+```
+Food-delivery-analysis/
+├── data/
+│   └── foodhub_order.csv
+├── notebooks/
+│   ├── 01_eda.ipynb
+│   └── 02_analysis.ipynb
+├── src/
+│   ├── preprocess.py
+│   └── analysis.py
+├── reports/
+│   └── findings.md
+├── requirements.txt
+└── README.md
 ```
 
-**Customer Segmentation Analysis:**
-```python
-# Top 3 most frequent customers for loyalty program
-top_customers = df['customer_id'].value_counts().head(3)
-# Result: 52832 (13 orders), 47440 (10 orders), 83287 (9 orders)
+## ▶️ How to Run
+```bash
+# Setup environment
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+# Run notebooks
+jupyter notebook notebooks/01_eda.ipynb
 ```
 
-**Operational Time Analysis:**
-```python
-# Total delivery time calculation
-df['total_time'] = df['food_preparation_time'] + df['delivery_time']
-long_orders = df[df['total_time'] > 60].shape[0]
-percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
-```
+## ✅ Outcomes
+- Identified key cuisines driving orders and revenue
+- Mapped peak delivery windows and suggested staffing adjustments
+- Ranked top restaurants by performance and customer sentiment
+- Produced a reproducible analysis pipeline for ongoing monitoring
 
-### Business Recommendations Generated
-1. **Promotional Strategy:** Focus on high-performing cuisines (Indian, Italian, American)
-2. **Operational Optimization:** Improve kitchen workflows for high-prep cuisines (Japanese, Italian)
-3. **Customer Retention:** Target top 3 customers with 20% discount vouchers
-4. **Weekend Planning:** Ensure extra staffing for weekend demand spikes
-5. **Value Proposition:** Highlight affordable, highly-rated cuisines in marketing
-
-## 📂 Files Included
-
-- `Food-delivery-analysis.ipynb`: The main Jupyter notebook containing full analysis, visualizations, and answers to 17 structured business questions
-- `foodhub_order.csv`: The dataset containing 1,898 food delivery orders with 9 variables
-- `README.md`: Comprehensive project documentation with technical details
-
----
-
-## 📈 Techniques Used
-
-- **Data Cleaning & Preprocessing**: Handling missing values ('Not given' ratings → NaN), data type conversion (rating: object → float)
-- **Exploratory Data Analysis (EDA)**: Comprehensive univariate and multivariate analysis of 9 variables
-- **Grouping and Aggregation**: Customer segmentation, restaurant performance analysis, cuisine type analysis
-- **Visualizations using Seaborn & Matplotlib**: Histograms, boxplots, correlation analysis, distribution plots
-- **Multivariate Analysis**: Cuisine type vs cost analysis, day-of-week patterns, rating correlations
-- **Custom Business Logic**: Revenue calculation with tiered commission (25% on orders >$20, 15% on orders >$5)
-- **Statistical Analysis**: Built-in pandas statistical functions for descriptive statistics
-- **Vectorized Calculations**: NumPy operations for efficient revenue and time analysis
-
----
-
-## 📌 Key Insights
-
-**Revenue & Order Value Analysis:**
-- Total platform revenue: **$6,166.30** across all 1,898 orders
-- **29.24%** of orders cost more than $20 (high-value segment generating 25% commission)
-- Commission-based revenue model drives profitability through tiered pricing structure
-
-**Customer Behavior:**
-- Top customer placed **13 orders**, showing strong repeat business potential
-- Top 3 frequent customers identified: **52832 (13 orders)**, **47440 (10 orders)**, **83287 (9 orders)**
-- Customer loyalty programs recommended for high-frequency users
-
-**Cuisine Popularity & Ratings:**
-- **Indian, Italian, and American** cuisines have highest overall order volume
-- **Korean** cuisine most popular on weekends
-- Most orders rated **>4**, indicating high overall customer satisfaction
-- **Korean/Vietnamese** cuisines offer lowest cost, **French/Thai** highest cost
-
-**Operational Efficiency:**
-- Mean delivery time: **24.16 minutes** (15-33 min range)
-- Food preparation time: **27 min average** (20-35 min range)
-- **10.54%** of orders take >60 minutes total time (preparation + delivery) - improvement opportunity
-- Long delivery/preparation times may negatively affect customer ratings
-
-**Restaurant Performance:**
-- **Top 5 Restaurants by Order Volume:**
-  1. **Shake Shack** (highest orders)
-  2. **The Meatball Shop**
-  3. **Blue Ribbon Sushi**
-  4. **Blue Ribbon Fried Chicken**
-  5. **Parm**
-- High-rated restaurants with many reviews identified for promotional offers
-
----
-
-## 💡 Business Recommendations
-
-1. **Promote High-Rated Restaurants:** Focus marketing on top-performing restaurants (Shake Shack, The Meatball Shop) and value-for-money cuisines (Korean, Vietnamese)
-2. **Streamline Operations:** Improve kitchen workflows for time-intensive cuisines (Japanese, Italian) to reduce preparation time
-3. **Customer Retention Program:** Target top 3 customers (52832, 47440, 83287) with 20% discount vouchers for loyalty rewards
-4. **Weekend Resource Planning:** Plan extra delivery resources and staffing for weekend demand spikes (Korean cuisine popularity)
-5. **Rating Improvement:** Encourage more customer ratings to improve visibility into restaurant performance and service quality
-6. **High-Value Order Focus:** Emphasize marketing for orders >$20 to maximize 25% commission revenue
-7. **Operational Efficiency:** Address the 10.54% of orders taking >60 minutes to improve customer satisfaction
-
----
-
-## 🚀 How to Use
-
-1. **Clone this repository:**
-   ```bash
-   git clone https://github.com/sy22478/Food-delivery-analysis.git
-   cd Food-delivery-analysis
-   ```
-
-2. **Install required dependencies:**
-   ```bash
-   pip install pandas==1.5.3 numpy==1.25.2 matplotlib==3.7.1 seaborn==0.13.1 jupyter
-   ```
-
-3. **Launch Jupyter Notebook:**
-   ```bash
-   jupyter notebook Food-delivery-analysis.ipynb
-   ```
-
-4. **Explore the analysis:**
-   - Review the 17 structured business questions
-   - Examine visualizations and statistical insights
-   - Run code cells to reproduce analysis results
-   - Modify parameters to explore different scenarios
-
----
-
-## 📊 Dataset Details
-
-**Data Scale:**
-- **1,898** food delivery orders from FoodHub (New York food aggregator)
-- **9 variables** including cuisine type, cost, ratings, preparation time, delivery time
-- **Business Model:** Commission-based revenue (25% on orders >$20, 15% on orders >$5)
-
-**Key Variables:**
-- `order_id`: Unique order identifier
-- `customer_id`: Customer identifier for segmentation
-- `restaurant_name`: Restaurant delivering the order
-- `cuisine_type`: Type of cuisine ordered
-- `cost_of_the_order`: Order value in dollars
-- `day_of_the_week`: Weekday/Weekend indicator
-- `rating`: Customer satisfaction rating
-- `food_preparation_time`: Kitchen preparation time (minutes)
-- `delivery_time`: Delivery duration (minutes)
-
----
-
-## 🛠️ Technologies Used
-
-- **Python**: Primary programming language for data analysis
-- **Pandas 1.5.3**: Data manipulation and analysis
-- **NumPy 1.25.2**: Numerical computing and vectorized operations
-- **Matplotlib 3.7.1**: Data visualization and plotting
-- **Seaborn 0.13.1**: Statistical graphics and advanced visualizations
-- **Jupyter Notebook**: Interactive development environment
-- **Google Colab**: Cloud-based execution platform with specific version controls
-
----
-
-## 📈 Analysis Framework
-
-**17 Structured Business Questions:**
-- Revenue analysis and commission calculations
-- Customer segmentation and loyalty metrics
-- Restaurant performance benchmarking
-- Cuisine type popularity and cost analysis
-- Operational efficiency (delivery + preparation time)
-- Weekend vs weekday pattern analysis
-- Rating distribution and satisfaction metrics
-
-**Code Structure:**
-- **516 lines** of comprehensive Python analysis
-- Vectorized revenue calculations using NumPy
-- Custom aggregation functions for business metrics
-- Statistical analysis with pandas built-in functions
-
----
-
-## 📞 Contact
-
-For questions or suggestions, please contact:
-- **GitHub:** [@sy22478](https://github.com/sy22478)
-- **Email:** sonu.yadav19997@gmail.com
-
----
-
-*This project demonstrates data-driven decision making for food delivery operations optimization.*
+## 👤 Author
+- GitHub: @sy22478
+- LinkedIn: https://www.linkedin.com/in/sonu-yadav-a61046245/
