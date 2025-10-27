@@ -140,7 +140,7 @@ percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
 4. **Weekend Planning:** Ensure extra staffing for weekend demand spikes
 5. **Value Proposition:** Highlight affordable, highly-rated cuisines in marketing
 
-## 📂 Files Included
+##  Files Included
 
 - `Food-delivery-analysis.ipynb`: The main Jupyter notebook containing full analysis, visualizations, and answers to 17 structured business questions
 - `foodhub_order.csv`: The dataset containing 1,898 food delivery orders with 9 variables
@@ -148,7 +148,7 @@ percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
 
 ---
 
-## 📈 Techniques Used
+##  Techniques Used
 
 - **Data Cleaning & Preprocessing**: Handling missing values ('Not given' ratings → NaN), data type conversion (rating: object → float)
 - **Exploratory Data Analysis (EDA)**: Comprehensive univariate and multivariate analysis of 9 variables
@@ -161,7 +161,7 @@ percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
 
 ---
 
-## 📌 Key Insights
+##  Key Insights
 
 **Revenue & Order Value Analysis:**
 - Total platform revenue: **$6,166.30** across all 1,898 orders
@@ -234,7 +234,7 @@ percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
 
 ---
 
-## 📊 Dataset Details
+##  Dataset Details
 
 **Data Scale:**
 - **1,898** food delivery orders from FoodHub (New York food aggregator)
@@ -254,7 +254,7 @@ percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - **Python**: Primary programming language for data analysis
 - **Pandas 1.5.3**: Data manipulation and analysis
@@ -285,7 +285,7 @@ percentage_long_orders = (long_orders / df.shape[0]) * 100  # 10.54%
 
 ---
 
-## 📞 Contact
+##  Contact
 
 For questions or suggestions, please contact:
 - **GitHub:** [@sy22478](https://github.com/sy22478)
